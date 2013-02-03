@@ -495,6 +495,23 @@
         }
 
         /**
+         * Get the table information.
+         * 
+         */
+        public function describe_table() {
+            
+            $this->raw_query("DESCRIBE ".$this->_table_name);
+            
+            $rows = $this->_run();
+
+            if (empty($rows)) { 
+               return false;
+            }
+
+            return array_map(array($this, '_create_instance_from_row'), $rows);
+        }
+        
+        /**
          * Tell the ORM that you are expecting a single result
          * back from your query, and execute it. Will return
          * a single instance of the ORM class, or false if no
